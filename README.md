@@ -1,8 +1,10 @@
-# Docker image for running CRS tests
+# OWASP Core Rule Set test runner
 
 ## Usage
 
 Please see the [lifeforms/crs-test Docker page](https://hub.docker.com/r/lifeforms/crs-test/) for usage instructions.
+
+This Git repository is only interesting if you intend to work on the Docker image.
 
 ## Development
 
