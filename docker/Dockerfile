@@ -18,7 +18,9 @@ RUN cd /crs/ && \
 	pip install -r ./util/regression-tests/requirements.txt
 
 COPY zzz.conf /etc/apache2/modsecurity.d/zzz.conf
+
 COPY run-tests.sh /
+COPY serve.sh /
 
 EXPOSE 80
 
