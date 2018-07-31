@@ -7,6 +7,8 @@ ARG COMMIT=v3.1/dev
 RUN apt-get update && \
     apt-get -y install python python-pip git ca-certificates
 
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
 RUN cd / && \
 	git clone https://github.com/${REPO}.git crs && \
 	cd crs && \
