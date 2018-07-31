@@ -26,6 +26,17 @@ apachectl start || exit 20
 
 py.test --tb=no -qs util/integration/format_tests.py || exit 10
 
+# If an argument is passed, e.g. 920470, only run tests for that rule.
+[ ! -z "$1" ] && {
+	echo "Running tests for rule $1..."
+	cd /crs
+	test=`echo util/regression-tests/tests/*/$1.yaml`
+	py.test --tb=no -vs util/regression-tests/CRS_Tests.py --rule="$test"
+	exit
+}
+
+# Run all the tests (copied from Travis)
+
 py.test -vs util/regression-tests/CRS_Tests.py --rule=util/regression-tests/tests/test.yaml || exit 11
 
 # TODO: not all ruledirs are working, so list the stable ones here for now,
