@@ -23,7 +23,8 @@ RUN cd / && \
 RUN cd /crs/ && \
 	pip install -r ./tests/regression/requirements.txt
 
-COPY zzz.conf /etc/apache2/modsecurity.d/zzz.conf
+COPY mod_security2.conf e/tc/apache2/conf-enabled/security2.conf
+COPY zzz.conf /etc/apache2/conf-enabled/zzz.conf
 
 COPY run-tests.sh /
 COPY serve.sh /

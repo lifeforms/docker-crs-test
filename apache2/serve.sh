@@ -26,7 +26,7 @@ ln -sf /dev/stderr /var/log/apache2/error.log
 
 # Don't use our testing configuration for CRS.
 # Overwrite it with a minimal default.
-cat << EOF > /etc/apache2/modsecurity.d/zzz.conf
+cat << EOF > /etc/apache2/conf-enabled/zzz.conf
 # This file has been rewritten by serve.sh
 SecAction "id:900005,\
   phase:1,\
