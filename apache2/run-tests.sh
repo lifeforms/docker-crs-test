@@ -24,20 +24,20 @@ cd /crs || exit 10
 # It will be cleaned up automatically when this script ends.
 apachectl start || exit 20
 
-py.test --tb=no -qs util/integration/format_tests.py || exit 10
+#py.test --tb=no -qs util/integration/format_tests.py || exit 10
 
 # If an argument is passed, e.g. 920470, only run tests for that rule.
 [ ! -z "$1" ] && {
 	echo "Running tests for rule $1..."
 	cd /crs
-	test=`echo util/regression-tests/tests/*/$1.yaml`
-	py.test --tb=no -vs util/regression-tests/CRS_Tests.py --rule="$test"
+	test=`echo tests/regression/tests/*/$1.yaml`
+	py.test --tb=no -vs tests/regression/CRS_Tests.py --rule="$test"
 	exit
 }
 
 # Run all the tests (copied from Travis)
 
-py.test -vs util/regression-tests/CRS_Tests.py --rule=util/regression-tests/tests/test.yaml || exit 11
+#py.test -vs tests/regression/CRS_Tests.py --rule=util/regression-tests/tests/test.yaml || exit 11
 
 # TODO: not all ruledirs are working, so list the stable ones here for now,
 # and change to --ruledir_recurse=util/regression-tests/tests/ later.
@@ -46,10 +46,14 @@ for ruledir in \
 	REQUEST-913-SCANNER-DETECTION \
 	REQUEST-921-PROTOCOL-ATTACK \
 	REQUEST-930-APPLICATION-ATTACK-LFI \
+	REQUEST-931-APPLICATION-ATTACK-RFI \
+	REQUEST-932-APPLICATION-ATTACK-RCE \
 	REQUEST-933-APPLICATION-ATTACK-PHP \
+	REQUEST-934-APPLICATION-ATTACK-NODEJS \
 	REQUEST-941-APPLICATION-ATTACK-XSS \
 	REQUEST-942-APPLICATION-ATTACK-SQLI \
-	REQUEST-943-APPLICATION-ATTACK-SESSION-FIXATION
+	REQUEST-943-APPLICATION-ATTACK-SESSION-FIXATION \
+	REQUEST-944-APPLICATION-ATTACK-JAVA
 do
-	py.test --tb=no -vs util/regression-tests/CRS_Tests.py --ruledir=util/regression-tests/tests/$ruledir
+	py.test --tb=no -vs tests/regression/CRS_Tests.py --ruledir=tests/regression/tests/$ruledir
 done

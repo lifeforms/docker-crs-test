@@ -1,11 +1,16 @@
-FROM owasp/modsecurity:v2-ubuntu-apache
+# ./build.sh
+# docker run lifeforms/crs-test
+
+FROM owasp/modsecurity:2.9-apache-ubuntu
 LABEL maintainer="walter@lifeforms.nl"
 
-ARG REPO=SpiderLabs/owasp-modsecurity-crs
-ARG COMMIT=v3.1/dev
+ARG REPO=coreruleset/coreruleset
+ARG COMMIT=v3.4/dev
 
-RUN apt-get update && \
-    apt-get -y install python python-pip git ca-certificates
+RUN echo '* libraries/restart-without-asking boolean true' | debconf-set-selections
+
+RUN apt-get -y update && \
+	apt-get -y install python python-pip git ca-certificates
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -16,8 +21,7 @@ RUN cd / && \
 	cp crs-setup.conf.example crs-setup.conf
 
 RUN cd /crs/ && \
-	pip install -r ./util/integration/requirements.txt && \
-	pip install -r ./util/regression-tests/requirements.txt
+	pip install -r ./tests/regression/requirements.txt
 
 COPY zzz.conf /etc/apache2/modsecurity.d/zzz.conf
 
